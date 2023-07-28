@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  client:
+    build: 
+      context: .
+      dockerfile: client/GoDockerfile
+    container_name: BotClient
+    restart: always
+    depends_on:
+      - engine
+
+  engine:
+    build: 
+      context: .
+      dockerfile: engine/PythonDockerfile
+    container_name: BotEngine
+    restart: always

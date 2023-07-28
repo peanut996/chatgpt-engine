@@ -1,0 +1,37 @@
+bot:
+  type: telegram
+  token: 123
+  channelName: name
+  groupName: name
+  botName: name
+  admin: 12323
+  donate: 10
+  downgrade: false
+  enableRateLimiter: true
+  groupChatLimiter: false
+  privateChatLimiter: true
+  gpt3Limiter:
+    join: true
+    count: true
+    strict: true
+    capacity: 1
+    duration: 60
+  gpt4Limiter:
+    join: true
+    count: true
+    invite: true
+    strict: true
+    capacity: 1
+    duration: 300
+
+engine:
+  port: 5005
+  host: engine/127.0.0.1
+  debug: true
+  chatgpt:
+    tokens:
+      - "email:password:conversation_id"
+
+database:
+  type: sqlite
+  path: "../etc/bot.db"
