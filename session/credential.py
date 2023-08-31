@@ -67,8 +67,13 @@ class Credential:
         if length != 2 and length != 3 and length != 4:
             raise Exception("token format error")
         if length == 2:
+            # acc:pass
             return Credential(credential[0], credential[1])
         elif length == 3:
+            # acc:pass:access_token
             return Credential(credential[0], credential[1], credential[2])
-        else:
+        elif length == 4:
+            # acc:pass:access_token:refresh_token
             return Credential(credential[0], credential[1], credential[2], credential[3])
+        else:
+            raise Exception("failed to parse credential.")
