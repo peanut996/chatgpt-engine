@@ -132,7 +132,7 @@ class Session:
                 session.update(conversation_id=conversation_id, parent_id=parent_id)
                 return res
             except ChatGPTError as e:
-                credential.refresh_token()
+                credential.refresh_access_token()
                 self._clean_session(user_id)
                 logging.error("[Engine] chat gpt engine get chat gpt error: {}".format(e.message))
                 error_code = e.code
@@ -192,7 +192,7 @@ class Session:
                     yield message
 
             except ChatGPTError as e:
-                credential.refresh_token()
+                credential.refresh_access_token()
                 self._clean_session(user_id)
                 logging.error("[Engine] chat gpt engine get chat gpt error: {}".format(e.message))
                 error_code = e.code
