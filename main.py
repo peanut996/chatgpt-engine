@@ -3,6 +3,7 @@ import logging
 from route import app, set_session
 from session.session import Session
 from tool import load_config
+from quart_cors import cors
 
 
 def main():
@@ -13,7 +14,9 @@ def main():
     port = config['engine']['port']
     debug = config['engine'].get('debug', False)
     set_session(session)
-    app.run(host="0.0.0.0", port=port, debug=debug)
+
+    cors_app = cors(app, allow_origin="*")
+    cors_app.run(host="0.0.0.0", port=port, debug=debug)
 
 
 if __name__ == "__main__":
