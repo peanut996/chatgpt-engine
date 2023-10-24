@@ -6,7 +6,15 @@ from revChatGPT.V1 import AsyncChatbot as ChatGPTBot
 
 
 class Credential:
-    def __init__(self, email, password, access_token=None, refresh_token=None, conversation_id=None, verbose=False):
+    def __init__(
+        self,
+        email,
+        password,
+        access_token=None,
+        refresh_token=None,
+        conversation_id=None,
+        verbose=False,
+    ):
         self.email = email
         self.password = password
         self.conversation_id = conversation_id
@@ -17,12 +25,15 @@ class Credential:
         if refresh_token is not None:
             self.refresh_access_token()
         else:
-            self.chat_gpt_bot = ChatGPTBot(config={
-                'email': email,
-                'password': password,
-                'access_token': access_token,
-                'verbose': verbose,
-            }, conversation_id=conversation_id)
+            self.chat_gpt_bot = ChatGPTBot(
+                config={
+                    "email": email,
+                    "password": password,
+                    "access_token": access_token,
+                    "verbose": verbose,
+                },
+                conversation_id=conversation_id,
+            )
 
     def set_verbose(self, verbose):
         self.verbose = verbose
@@ -32,33 +43,40 @@ class Credential:
         if not self.refresh_token:
             return
         try:
-            access_token = Credential.get_refreshed_token(self.refresh_token)
+            access_token, new_refresh_token = Credential.get_refreshed_token(
+                self.refresh_token
+            )
             if access_token is None:
                 raise Exception("empty access token")
-            self.chat_gpt_bot = ChatGPTBot(config={
-                'email': self.email,
-                'password': self.password,
-                'access_token': access_token,
-                'verbose': self.verbose,
-            }, conversation_id=self.conversation_id)
+            self.refresh_token = new_refresh_token
+            self.chat_gpt_bot = ChatGPTBot(
+                config={
+                    "email": self.email,
+                    "password": self.password,
+                    "access_token": access_token,
+                    "verbose": self.verbose,
+                },
+                conversation_id=self.conversation_id,
+            )
             logging.info("[RefreshToken] access token refreshed: {}".format(self.email))
         except Exception as e:
-            logging.error("[RefreshToken] refresh token failed" + str(e))
+            logging.error("[RefreshToken] refresh token failed:" + str(e))
 
     @staticmethod
-    def get_refreshed_token(refresh_token) -> str:
-        url = "https://auth0.openai.com/oauth/token"
+    def get_refreshed_token(refresh_token):
+        # url = "https://auth0.openai.com/oauth/token"
+        url = "https://ai.fakeopen.com/auth/session"
         headers = {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/x-www-form-urlencoded",
         }
         data = {
-            "redirect_uri": "com.openai.chat://auth0.openai.com/ios/com.openai.chat/callback",
-            "grant_type": "refresh_token",
-            "client_id": "pdlLIX2Y72MIl2rhLhTE9VV9bN905kBh",
-            "refresh_token": refresh_token
+            "session_token": refresh_token,
         }
-        r = httpx.post(url, json=data, headers=headers)
-        return r.json()['access_token']
+        r = httpx.post(url, data=data, headers=headers)
+        body = r.json()
+        access_token = body["access_token"]
+        new_session_token = body["session_token"]
+        return access_token, new_session_token
 
     @staticmethod
     def parse(credential_str: str):
@@ -74,6 +92,8 @@ class Credential:
             return Credential(credential[0], credential[1], credential[2])
         elif length == 4:
             # acc:pass:access_token:refresh_token
-            return Credential(credential[0], credential[1], credential[2], credential[3])
+            return Credential(
+                credential[0], credential[1], credential[2], credential[3]
+            )
         else:
             raise Exception("failed to parse credential.")
