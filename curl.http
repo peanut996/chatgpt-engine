@@ -2,4 +2,4 @@ GET http://127.0.0.1:5000/ping
 
 
 ###
-GET http://127.0.0.1:5000/ping
+GET http://127.0.0.1:15000/chat?sentence=hi

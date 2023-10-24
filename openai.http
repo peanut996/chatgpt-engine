@@ -1,0 +1,5 @@
+POST  https://ai.fakeopen.com/auth/session
+Content-Type: application/x-www-form-urlencoded
+
+session_token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..
+
