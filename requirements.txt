@@ -2,6 +2,6 @@ httpx==0.24.1
 OpenAIAuth==3.0.0
 PyYAML==5.3.1
 quart==0.18.4
-ChatGPT2API==6.8.6
+ChatGPT2API==6.8.7
 quart-cors==0.6.0
 Werkzeug==2.2.2

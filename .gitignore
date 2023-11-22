@@ -16,3 +16,4 @@ chatgpt-bot
 run.sh/
 proxy
 env.sh
+*.jwt

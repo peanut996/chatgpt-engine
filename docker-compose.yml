@@ -1,18 +1,11 @@
 version: '3'
-
 services:
-  client:
-    build: 
-      context: .
-      dockerfile: client/GoDockerfile
-    container_name: BotClient
+  pandora-next:
+    image: pengzhile/pandora-next
+    container_name: PandoraNext
+    network_mode: bridge
     restart: always
-    depends_on:
-      - engine
-
-  engine:
-    build: 
-      context: .
-      dockerfile: engine/PythonDockerfile
-    container_name: BotEngine
-    restart: always
+    ports:
+      - "8181:8181"
+    environment:
+      - PANDORA_NEXT_LICENSE=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovL2NsaWVudC1hcGkucGFuZG9yYW5leHQuY29tIiwiZXhwIjoxNzk1MjMxMTM5LCJqdGkiOiJKQ2dWUUNMVTJ1cnF3V1Nia1hIN1lERlVXamlyY1daRkdUcHlRMTRic1FVIiwiaWF0IjoxNzAwNjIzMTM5LCJpc3MiOiJodHRwczovL2Rhc2gucGFuZG9yYW5leHQuY29tLyIsIm5iZiI6MTcwMDYyMzEzOSwic3ViIjoiNHBMMURTTkd0SzNISUgxU3VZMXRULVd4eHVIOEN4TWRGblhOX1g4IiwiYXpwIjoiRmo3dGE3bEF3Q0Rkalg3VWcxZmFDUU1TNklrZU5MWUJnZWE0TWRlejJNcyIsImxtdCI6NjAwMCwiZnRzIjpbXX0.VS7z_7Dlj2PgaZggVPnO_oE20A3W6PaTiWmHcOLJroH9gxYOXNfmjak5bYU-Fr6XK5Oh34MwwYem5YKw-EugHv68Okn9N2eZgG8cFkbdEM7anBZToK6d4TTGhOV9aNnsFmRH1sRjUWVQ-KHXjD9Su0RVOL-lBcgTfPUVJ0TLfovJaUe_XN4s9s75Iq5knw0m2vE2R7ljmYJJDvXtIqWoiMPzGmPXxx5NeaXqDV8knbj7PBRQXzXZaHAZD6XGOWd9CFhDYfuO0qY8M2lXfneKAtMpQojHiYbTcte2Ki31zSrhsgmJeAXHsciKoBpZm8aID2AY1h-VmTXqM9_Bf6ZQKw
