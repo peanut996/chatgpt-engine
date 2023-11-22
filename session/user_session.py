@@ -11,6 +11,7 @@ class UserSession:
         self.last_time = time.time()
         self.credential = credential
 
+
     def update(self, parent_id=None, conversation_id=None):
         self.last_time = time.time()
         self.parent_id = parent_id

@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 from OpenAIAuth import Error as OpenAIError
 from quart import Quart, request, make_response
-from revChatGPT.typings import Error as ChatGPTError
+from ChatGPT2API.typings import Error as ChatGPTError
 
 from session.session import Session
 

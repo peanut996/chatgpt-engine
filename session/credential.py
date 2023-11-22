@@ -2,7 +2,7 @@ import asyncio
 import logging
 
 import httpx
-from revChatGPT.V1 import AsyncChatbot as ChatGPTBot
+from ChatGPT2API.V1 import AsyncChatbot as ChatGPTBot
 
 
 class Credential:

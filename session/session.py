@@ -6,9 +6,9 @@ from typing import List, Dict, AsyncGenerator
 
 import OpenAIAuth
 from httpx import HTTPStatusError
-from revChatGPT.typings import Error as ChatGPTError
+from ChatGPT2API.typings import Error as ChatGPTError
 
-from revChatGPT.typings import ErrorType as ChatGPTErrorType
+from ChatGPT2API.typings import ErrorType as ChatGPTErrorType
 
 from .credential import Credential
 from .user_session import UserSession
